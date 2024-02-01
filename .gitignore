@@ -1,1 +1,3 @@
 node_modules
+/front/chat/.angular
+/front/chat/.vscode
