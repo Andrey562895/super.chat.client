@@ -3,18 +3,21 @@ import { Component, OnInit } from '@angular/core';
 import { RegService } from '../../services/reg/reg.service';
 import { User } from '../../user.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule,
+    ReactiveFormsModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent implements OnInit {
   user!: User;
   formReg!: FormGroup;
+  formCode!: FormGroup;
+  showRegForm: boolean = true;
 
   constructor(public http: HttpClient) {
 
@@ -22,29 +25,26 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.formReg = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
+      email: new FormControl(null),
+      password: new FormControl(null)
+    });
+    this.formCode = new FormGroup({
+      code: new FormControl(null),
     });
   }
 
-  postData(user: User) {
-    const data = { name: user.email, age: user.password };
-    return this.http.post("http://192.168.1.109:3000/register/", data);
+  onSubmitReg() {
+
+    this.http.post("http://paungram.store/register/", this.formReg.value, { responseType: 'text' }).subscribe(data => {
+      console.log(data)
+      if (data) this.showRegForm = false;
+    })
   }
 
-
-
-
-  onSubmit() {
-    console.log('Valid?'); // true or false
-    // console.log('Name', form.value.name);
-    // console.log('Email', form.value.email);
-    // console.log('Message', form.value.message);
-  }
-
-  getMessage() {
-    this.http.post("http://192.168.1.109:3000/register/", { email: "zzz.lify@icloud.com" }, { responseType: 'text' }).subscribe(data => {
+  onSubmitCode() {
+    this.http.post("http://paungram.store/confirm/", this.formCode.value, { responseType: 'text' }).subscribe(data => {
       console.log(data)
     })
   }
 }
+

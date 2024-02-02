@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ChatComponent } from './components/chat/chat.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { RegService } from './services/reg/reg.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,9 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
   ],
   providers: [RegService],
   bootstrap: [AppComponent]
