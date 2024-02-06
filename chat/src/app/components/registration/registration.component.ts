@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   formReg!: FormGroup;
   formCode!: FormGroup;
   showRegForm: boolean = true;
+  errorMessageForm?: string;
 
   constructor(public http: HttpClient) {
 
@@ -34,10 +35,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmitReg() {
-
     this.http.post("http://paungram.store/register/", this.formReg.value, { responseType: 'text' }).subscribe(data => {
       console.log(data)
-      if (data) this.showRegForm = false;
+      console.log(JSON.parse(data).error)
+      this.errorMessageForm = JSON.parse(data).error_log;
+      if (!JSON.parse(data).hasOwnProperty('error')) this.showRegForm = false;
+
     })
   }
 
