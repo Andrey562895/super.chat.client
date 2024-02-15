@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/chat",
+            "outputPath": "/var/www/html/dist/chat",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -55,6 +55,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+			      "port": 80
+          },
           "configurations": {
             "production": {
               "buildTarget": "chat:build:production"
@@ -91,5 +94,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "56bbb7a1-90dc-4887-b9d1-0e400b6dd7aa"
   }
 }
